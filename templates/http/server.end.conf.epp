@@ -1,0 +1,4 @@
+<%- if $return != undef { -%>
+    return <%= $return %>;
+<%- } -%>
+}

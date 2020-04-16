@@ -1,0 +1,14 @@
+server {
+<%- $listen.each | $address | { -%>
+    listen <%= $address %><% if $ssl == true { %> ssl<%- } if $http2 { %> http2<%- } if $server_name == undef {%> default_server<% } %>;
+<%- } -%>
+<%- if $server_name != undef { -%>
+    server_name<%- concat([$server_name], $server_aliases).each | $name | { %> <%= $name %><%- } %>;
+<%- } -%>
+<%- if $root != undef { -%>
+    root "<%= $root %>";
+<%- } -%>
+    client_max_body_size 10M;
+
+    access_log  <%= $access_log %>;
+    error_log   <%= $error_log %> warn;

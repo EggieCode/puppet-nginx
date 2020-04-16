@@ -1,0 +1,11 @@
+    location <%= $name %> {
+    <%- if $root != undef { -%>
+        root <%= $root %>;
+    <%- } -%>
+    <%- if $alias != undef { -%>
+        alias <%= $alias %>;
+    <%- } -%>
+    <%- if $default_type != undef { -%>
+        default_type <%= $default_type %>;
+    <%- } -%>
+<%= $config %>

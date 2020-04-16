@@ -1,0 +1,23 @@
+user                 <%= $nginx::user %> <%= $nginx::group %>;
+worker_processes     <%= $nginx::worker_processes %>;
+pid                  <%= $nginx::pid_file %>;
+
+error_log            <%= $nginx::default_log_error %>;
+
+events {
+  worker_connections <%= $nginx::worker_connections %>;
+}
+
+<% if $nginx::http_service { -%>
+http {
+  sendfile      on;
+  server_tokens off;
+  access_log    <%= $nginx::default_log_access %>;
+
+
+  include       <%= $nginx::config_path -%>/mime.types;
+  include       <%= $nginx::config_path -%>/http.conf.d/*.conf;
+  include       <%= $nginx::config_path -%>/sites-enabled/*.conf;
+
+}
+<% } -%>
