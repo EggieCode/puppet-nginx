@@ -4,8 +4,8 @@ define nginx::http::location::proxy (
 
     String $target,
     Boolean $proxy_buffering                                                       = true,
-    String $proxy_connect_timeout                                                  = '300s',
-    String $proxy_read_timeout                                                     = '300s',
+    String $proxy_connect_timeout                                                  = '900s',
+    String $proxy_read_timeout                                                     = '900s',
     Optional[Hash[String, String]] $proxy_set_header                               = undef,
 
     Enum['1.0', '1.1'] $proxy_http_version                                         = '1.1',

@@ -15,8 +15,8 @@ class nginx (
     String $user_home,
     String $user_shell,
 
-    String $root_user,
-    String $root_group,
+    String $root_user = 'root',
+    String $root_group = 'root',
 
     String $config_path,
     String $nginx_conf,
@@ -96,6 +96,19 @@ class nginx (
             default   => 'absent',
         },
         path    => "$config_path/mime.types",
+        notify  => [
+            Service[$nginx::service_name]
+        ],
+        require => File[$config_path],
+    }
+
+    file { 'uwsgi_params':
+        ensure  => $ensure ? {
+            'present' => 'file',
+            default   => 'absent',
+        },
+        path    => "$config_path/uwsgi_params",
+        source  => 'puppet:///modules/nginx/uwsgi_params',
         notify  => [
             Service[$nginx::service_name]
         ],
